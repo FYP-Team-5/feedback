@@ -27,7 +27,7 @@ Measured on 389 test rows from questions that neither model saw in training.
 | ROUGE-L against the teacher's feedback | 0.299 | 0.392 |
 | Mean length (words) | 90 | 70 |
 
-The first five rows come from the Qwen3.5-27B judge. The last three are automatic checks from the student notebook.
+The first five rows come from the Qwen3.5-27B judge. The last three are automatic checks that the student notebook computed when it ran on the cluster.
 
 To see what the numbers mean in practice, read [Results/side_by_side_examples.md](Results/side_by_side_examples.md). It shows eight test rows with the feedback from both models, including two where the adapter did worse.
 
@@ -36,12 +36,11 @@ To see what the numbers mean in practice, read [Results/side_by_side_examples.md
 ```
 feedback/
 ├── feedback_teacher_qwen3.5-27B.ipynb   Stage 1 and 3, saved with its outputs
-├── qlora_feedback_qwen3.5-9B.ipynb      Stage 2, clean copy without outputs
+├── qlora_feedback_qwen3.5-9B.ipynb      Stage 2, saved without outputs
 ├── Datasets/
 │   ├── training_data_moh_eng_rubrics.csv    Source data
 │   └── teacher_feedback/                    Everything the pipeline produced
 ├── Results/
-│   ├── qlora_feedback_qwen3.5-9B_ran.ipynb  Stage 2 as executed on the cluster
 │   └── side_by_side_examples.md             Base vs adapter on eight test rows
 └── Archive/                                 Earlier experiments, not part of the final pipeline
 ```
@@ -51,11 +50,9 @@ feedback/
 | The teacher and judge prompts | Teacher notebook, section *Prompts* |
 | The quality checks and why they were designed this way | Teacher notebook, sections *Prompts* and *Quality checks* |
 | How much teacher feedback passed, and why the rest failed | Teacher notebook, section *Review* |
-| The student prompt, LoRA settings and training loss | [Results/qlora_feedback_qwen3.5-9B_ran.ipynb](Results/qlora_feedback_qwen3.5-9B_ran.ipynb) |
-| The automatic checks on the test set | Same notebook, section *Generate the test set* |
+| The student prompt and LoRA settings | Student notebook, sections *Configuration* and *Prompt* |
+| How the automatic checks are computed | Student notebook, section *Generation and automatic checks* |
 | The judge's verdict on every test row | `Datasets/teacher_feedback/student_test_judgements.jsonl` |
-
-The executed student notebook opens with a red papermill error banner. The error is in the final cell, which uploads the adapter to Hugging Face. Training and evaluation had already finished, so the results above are not affected.
 
 ## Data
 
